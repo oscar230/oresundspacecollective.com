@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: build
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: osc
+    tag: latest
+    registry: http://192.168.2.5:5000
+    dockerfile: dockerfile
+    platform: linux/amd64
+  
+trigger:
+  event:
+  - push
