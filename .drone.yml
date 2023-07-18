@@ -8,7 +8,11 @@ steps:
   settings:
     repo: osc
     tag: latest
-    registry: http://192.168.2.5:5000
+    username:
+      from_secret: registry-username
+    password:
+      from_secret: registry-password
+    registry: https://rc.grupp054.se
     dockerfile: dockerfile
     platform: linux/amd64
   
