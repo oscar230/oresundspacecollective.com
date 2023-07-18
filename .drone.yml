@@ -8,10 +8,6 @@ steps:
   settings:
     repo: osc
     tag: latest
-    username:
-      from_secret: registry-username
-    password:
-      from_secret: registry-password
     registry:
       from_secret: registry-url
     dockerfile: dockerfile
