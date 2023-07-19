@@ -9,8 +9,19 @@ steps:
   - name: site
     path: /tmp/site
   commands:
-    #- rm -rf /tmp/site/*
-    - mv src/* /tmp/site
+  #- rm -rf /tmp/site/*
+  - mv src/* /tmp/site
+- name: compress-images
+  image: alpine:latest
+  volumes:
+  - name: site
+    path: /tmp/site
+  commands:
+  - apk update
+  - apk add jpegoptim
+  - cd /tmp/site
+  - find . -name "*.jpg" -exec jpegoptim --strip-all  {} \;
+  - find . -name "*.jpeg" -exec jpegoptim --strip-all  {} \;
 
 volumes:
 - name: site
