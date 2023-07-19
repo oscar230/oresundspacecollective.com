@@ -8,6 +8,8 @@ steps:
   settings:
     repo: osc
     tag: latest
+    registry:
+      from_secret: registry-url
     dockerfile: dockerfile
     platform: linux/amd64
   
