@@ -7,12 +7,13 @@ steps:
   image: alpine:latest
   volumes:
   - name: site-oresundspacecollective
-    path: /var/site
+    path: /tmp/site
   commands:
-    - ls /var/site
-    - rm -rf /var/site/*
-    - mv src/* /var/site
-    - ls /var/site
+    - mkdir /tmp/site
+    - ls /tmp/site
+    - rm -rf /tmp/site/*
+    - mv src/* /tmp/site
+    - ls /tmp/site
 
 trigger:
   event:
