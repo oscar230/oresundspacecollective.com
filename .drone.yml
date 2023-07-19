@@ -6,7 +6,7 @@ steps:
 - name: docker
   image: plugins/docker
   commands:
-    - docker build -t oresundspacecollective:latest
+    - docker build -t oresundspacecollective:latest .
   
 trigger:
   event:
