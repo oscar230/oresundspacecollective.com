@@ -4,7 +4,7 @@ name: build
 
 steps:
 - name: move-to-volume
-  image: apline
+  image: alpine:latest
   commands:
     - ls /var/site
     - rm -rf /var/site/*
