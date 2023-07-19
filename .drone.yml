@@ -9,7 +9,7 @@ steps:
   - name: site
     path: /tmp/site
   commands:
-  #- rm -rf /tmp/site/*
+  - rm -rf /tmp/site/*
   - mv src/* /tmp/site
 - name: compress-images
   image: alpine:latest
