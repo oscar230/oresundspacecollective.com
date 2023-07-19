@@ -5,16 +5,14 @@ name: build
 steps:
 - name: move-to-volume
   image: alpine:latest
+  volumes:
+  - name: site-oresundspacecollective
+    path: /var/site
   commands:
     - ls /var/site
     - rm -rf /var/site/*
     - mv src/* /var/site
     - ls /var/site
-  
-volumes:
-- name: site-oresundspacecollective
-  host:
-    path: /var/site
 
 trigger:
   event:
