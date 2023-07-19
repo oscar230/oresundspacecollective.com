@@ -20,7 +20,20 @@ steps:
   - apk update
   - apk add jpegoptim
   - cd /tmp/site
-  - find . -name '*.jpg' -o -name '*.jpeg' -exec jpegoptim --strip-all  {} \;
+  - find . -name '*.jpg' -o -name '*.jpeg' -exec jpegoptim --strip-all {} \;
+- name: compress-css-and-js
+  image: alpine:latest
+  volumes:
+  - name: site
+    path: /tmp/site
+  commands:
+  - apk update
+  - apk add npm
+  - npm install uglify-js -g
+  - npm install uglifycss -g
+  - cd /tmp/site
+  - find . -name '*.js' -exec uglifyjs --compress --mangle -- {} \;
+  - find . -name '*.js' -exec uglifycss --compress --mangle -- {} \;
 
 volumes:
 - name: site
