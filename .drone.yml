@@ -20,8 +20,7 @@ steps:
   - apk update
   - apk add jpegoptim
   - cd /tmp/site
-  - find . -name "*.jpg" -exec jpegoptim --strip-all  {} \;
-  - find . -name "*.jpeg" -exec jpegoptim --strip-all  {} \;
+  - find . -name '*.jpg' -o -name '*.jpeg' -exec jpegoptim --strip-all  {} \;
 
 volumes:
 - name: site
