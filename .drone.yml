@@ -5,13 +5,8 @@ name: build
 steps:
 - name: docker
   image: plugins/docker
-  settings:
-    repo: osc
-    tag: latest
-    registry:
-      from_secret: registry-url
-    dockerfile: dockerfile
-    platform: linux/amd64
+  commands:
+    - docker build -t oresundspacecollective:latest
   
 trigger:
   event:
