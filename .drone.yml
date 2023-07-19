@@ -33,7 +33,7 @@ steps:
   - npm install uglifycss -g
   - cd /tmp/site
   - find . -name '*.js' -exec uglifyjs --output {} --compress --mangle -- {} \;
-  - find . -name '*.css' -exec uglifycss --output {} -- {} \;
+  - find . -name '*.css' -exec uglifycss --output {} {} \;
 - name: check-links
   image: python:3-alpine
   volumes:
