@@ -6,7 +6,7 @@ steps:
 - name: move-to-volume
   image: alpine:latest
   volumes:
-  - name: site-oresundspacecollective
+  - name: site
     path: /tmp/site
   commands:
     - mkdir /tmp/site
@@ -14,6 +14,11 @@ steps:
     - rm -rf /tmp/site/*
     - mv src/* /tmp/site
     - ls /tmp/site
+
+volumes:
+- name: site
+  host:
+    path: /var/sites/osc
 
 trigger:
   event:
