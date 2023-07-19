@@ -9,11 +9,8 @@ steps:
   - name: site
     path: /tmp/site
   commands:
-    - mkdir /tmp/site
-    - ls /tmp/site
-    - rm -rf /tmp/site/*
+    #- rm -rf /tmp/site/*
     - mv src/* /tmp/site
-    - ls /tmp/site
 
 volumes:
 - name: site
