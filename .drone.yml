@@ -35,14 +35,14 @@ steps:
   - find . -name '*.js' -exec uglifyjs --output {} --compress --mangle -- {} \;
   - find . -name '*.css' -exec uglifycss --output {} {} \;
 - name: check-links
-  image: python:3-alpine
+  image: alpine:latest
   volumes:
   - name: site
     path: /tmp/site
   commands:
-  - pip3 install linkchecker
-  - cd /tmp/site
-  - find . -name '*.html' -o -name '*.htm' -exec linkchecker {} \;
+  - apk update
+  - apk add curl
+  - find /tmp/site -name '*.html' -o -name '*.htm' -exec grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" {} \; | uniq -u | sort -u | xargs curl -Is
 
 volumes:
 - name: site
