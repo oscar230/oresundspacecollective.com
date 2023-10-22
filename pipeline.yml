@@ -1,0 +1,6 @@
+resources:
+  - name: repo
+    type: git
+    source:
+      uri: https://github.com/oscar230/oresundspacecollective.com
+      branch: main
