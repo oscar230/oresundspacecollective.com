@@ -1,6 +1,34 @@
+resource_types:
+  - name: sftp
+    type: docker-image
+    source:
+      repository: pivotalservices/concourse-sftp-resource
+      tag: latest
+
 resources:
   - name: repo
     type: git
     source:
       uri: https://github.com/oscar230/oresundspacecollective.com
       branch: main
+
+  - name: sftp-server
+    type: sftp
+    source:
+      username: ((sftp_username))
+      server: ((sftp_server))
+      port: ((sftp_port))
+      private_key: ((sftp_private_key))
+      dir: ~/oresundspacecollective
+
+jobs:
+  - name: copy-files-to-sftp
+    plan:
+      - get: repo
+        trigger: true
+      - put: sftp-server
+        params:
+          operation: put
+          local_dir: repo
+          remote_dir: ~/oresundspacecollective
+          clean_remote: true

@@ -1,0 +1,7 @@
+sftp_username: YOUR_SFTP_USERNAME
+sftp_server: YOUR_SFTP_SERVER
+sftp_port: YOUR_SFTP_PORT
+sftp_private_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  YOUR_ACTUAL_PRIVATE_KEY_HERE
+  -----END RSA PRIVATE KEY-----
