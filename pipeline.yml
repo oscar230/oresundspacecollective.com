@@ -1,8 +1,8 @@
 resource_types:
-  - name: sftp
-    type: registry-image
-    source:
-      repository: pivotalservices/concourse-sftp-resource
+- name: lftp-resource
+  type: docker-image
+  source:
+      repository: machinerytool/concourse-lftp-resource
       tag: latest
 
 resources:
@@ -12,8 +12,17 @@ resources:
     source:
       uri: https://github.com/oscar230/oresundspacecollective.com
 
+  - name: ftp
+    type: lftp-resource
+    icon: save
+    source:
+      url: sftp://((sftp_username)):((sftp_password))@((sftp_host))/((sftp_path))
+
 jobs:
-  - name: copy-files-to-sftp
+  - name: deploy
     plan:
-      - get: source-code
-        trigger: true
+    - get: source-code
+      trigger: true
+    - put: ftp
+      params:
+        files: "source-code/*"
