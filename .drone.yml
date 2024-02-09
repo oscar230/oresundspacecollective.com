@@ -3,7 +3,15 @@ type: docker
 name: default
 
 steps:
-  - name: git-clone
-    image: plugins/git
+  - name: ssh-copy
+    image: appleboy/drone-scp
     settings:
-      depth: 1
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      source: ./src/**
+      target: /var/www/oresundspacecollective
+      overwrite: true
