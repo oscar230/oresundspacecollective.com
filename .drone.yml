@@ -8,7 +8,7 @@ steps:
     settings:
       hosts:
         from_secret: ssh_host
-      username:
+      user:
         from_secret: ssh_username
       key:
         from_secret: ssh_key
