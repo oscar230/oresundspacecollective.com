@@ -8,7 +8,7 @@ steps:
     settings:
       depth: 1
 
-  - name: ssh-copy-raveman
+  - name: ssh-copy
     image: appleboy/drone-scp
     settings:
       host:
