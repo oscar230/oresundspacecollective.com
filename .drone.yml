@@ -12,6 +12,6 @@ steps:
         from_secret: ssh_username
       key:
         from_secret: ssh_key
-      source: ./src/**
+      source: ./src/*
       target: /var/www/oresundspacecollective
       overwrite: true
