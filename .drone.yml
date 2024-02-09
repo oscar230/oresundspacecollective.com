@@ -1,0 +1,22 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: clone
+    image: plugins/git
+    settings:
+      depth: 1
+
+  - name: ssh-copy-raveman
+    image: appleboy/drone-scp
+    settings:
+      host:
+        from_secret: ssh_host
+      username:
+        from_secret: ssh_username
+      key:
+        from_secret: ssh_key
+      source: ./src/**
+      target: /var/www/oresundspacecollective
+      overwrite: true
