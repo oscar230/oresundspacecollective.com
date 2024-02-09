@@ -23,4 +23,4 @@ steps:
       source: ./src/
       target: /var/www/oresundspacecollective/
       recursive: true
-      #delete: true
+      delete: true
