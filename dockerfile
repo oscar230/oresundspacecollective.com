@@ -12,12 +12,8 @@ RUN exif_delete --replace ./**/*.PNG
 RUN exif_delete --replace ./**/*.gif
 RUN exif_delete --replace ./**/*.GIF
 
-FROM golang:1-bookworm AS server
-COPY server.go server.go
-RUN go build -ldflags "-linkmode external -extldflags -static" -a server.go
-
-FROM scratch
-COPY --from=prepare /app/ ./
-COPY --from=server /go/server ./server
-CMD ["./server"]
+FROM nginx:mainline-alpine-slim
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=prepare /app/ /usr/share/nginx/html/
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
