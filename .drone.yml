@@ -20,7 +20,7 @@ steps:
         from_secret: registry_username
       password:
         from_secret: registry_password
-      repo: registry.e012.se/grupp054/oresundspacecollective.com
+      repo: registry.e012.se/oscar230/oresundspacecollective.com
       tags: "${DRONE_SOURCE_BRANCH}"
       dockerfile: Dockerfile
       force_tag: false
