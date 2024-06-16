@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base directory containing the HTML files
-BASE_DIR="/mnt/data/src_extracted/src"
+BASE_DIR="./src"
 
 # Directories to store extracted components
 HEADER_DIR="$BASE_DIR/headers"
