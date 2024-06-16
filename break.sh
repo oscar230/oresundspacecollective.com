@@ -22,6 +22,7 @@ extract_components() {
     local dirname
     dirname=$(dirname "$relative_path")
 
+    # Ensure the target directories exist
     mkdir -p "$HEADER_DIR/$dirname"
     mkdir -p "$FOOTER_DIR/$dirname"
     mkdir -p "$NAV_DIR/$dirname"
