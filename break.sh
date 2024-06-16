@@ -25,9 +25,6 @@ extract_components() {
 
     # Debugging information
     echo "Processing file: $file"
-    echo "Relative path: $relative_path"
-    echo "Filename: $filename"
-    echo "Directory name: $dirname"
 
     # Extract header
     awk '/<header>/,/<\/header>/' "$file" > "$HEADER_DIR/$dirname/$filename-header.html"
