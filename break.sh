@@ -3,73 +3,63 @@
 # Base directory containing the HTML files (relative to the current working directory)
 BASE_DIR="./src"
 
-# Directories to store extracted components
-HEADER_DIR="$BASE_DIR/headers"
-FOOTER_DIR="$BASE_DIR/footers"
-NAV_DIR="$BASE_DIR/navigation"
+# Directory to store Svelte components
+COMPONENTS_DIR="./src/components"
 
 # Create directories for storing components if they do not exist
-mkdir -p "$HEADER_DIR"
-mkdir -p "$FOOTER_DIR"
-mkdir -p "$NAV_DIR"
+mkdir -p "$COMPONENTS_DIR"
 
-# Function to extract components from HTML files
-extract_components() {
+# Function to extract components from HTML files and create Svelte components
+extract_svelte_components() {
     local file="$1"
     local relative_path="${file#$BASE_DIR/}"
     local filename
     filename=$(basename "$relative_path" .htm)
-    local dirname
-    dirname=$(dirname "$relative_path")
-
-    # Ensure the target directories exist
-    mkdir -p "$HEADER_DIR/$dirname"
-    mkdir -p "$FOOTER_DIR/$dirname"
-    mkdir -p "$NAV_DIR/$dirname"
 
     # Debugging information
     echo "Processing file: $file"
 
-    # Extract header
-    awk '/<header>/,/<\/header>/' "$file" > "$HEADER_DIR/$dirname/$filename-header.html"
-    if [ $? -eq 0 ]; then
-        if [ -s "$HEADER_DIR/$dirname/$filename-header.html" ]; then
-            echo "Header extracted to: $HEADER_DIR/$dirname/$filename-header.html"
-        else
-            echo "Header not found in: $file"
-        fi
+    # Extract header and create Svelte component
+    awk '/<header[^>]*>/,/<\/header>/' "$file" > "$COMPONENTS_DIR/Header.svelte"
+    if [ $? -eq 0 ] && [ -s "$COMPONENTS_DIR/Header.svelte" ]; then
+        echo "<script>
+    export let title = 'Default Title';
+</script>
+
+<svelte:head>
+    <title>{title}</title>
+</svelte:head>
+$(cat "$COMPONENTS_DIR/Header.svelte")" > "$COMPONENTS_DIR/Header.svelte"
+        echo "Header component created: $COMPONENTS_DIR/Header.svelte"
     else
-        echo "Failed to extract header from: $file"
+        echo "Header not found in: $file"
     fi
 
-    # Extract footer
-    awk '/<footer>/,/<\/footer>/' "$file" > "$FOOTER_DIR/$dirname/$filename-footer.html"
-    if [ $? -eq 0 ]; then
-        if [ -s "$FOOTER_DIR/$dirname/$filename-footer.html" ]; then
-            echo "Footer extracted to: $FOOTER_DIR/$dirname/$filename-footer.html"
-        else
-            echo "Footer not found in: $file"
-        fi
+    # Extract footer and create Svelte component
+    awk '/<footer[^>]*>/,/<\/footer>/' "$file" > "$COMPONENTS_DIR/Footer.svelte"
+    if [ $? -eq 0 ] && [ -s "$COMPONENTS_DIR/Footer.svelte" ]; then
+        echo "<script>
+    export let footerText = 'Default Footer Text';
+</script>
+
+$(cat "$COMPONENTS_DIR/Footer.svelte")" > "$COMPONENTS_DIR/Footer.svelte"
+        echo "Footer component created: $COMPONENTS_DIR/Footer.svelte"
     else
-        echo "Failed to extract footer from: $file"
+        echo "Footer not found in: $file"
     fi
 
-    # Extract navigation
-    awk '/<nav>/,/<\/nav>/' "$file" > "$NAV_DIR/$dirname/$filename-nav.html"
-    if [ $? -eq 0 ]; then
-        if [ -s "$NAV_DIR/$dirname/$filename-nav.html" ]; then
-            echo "Navigation extracted to: $NAV_DIR/$dirname/$filename-nav.html"
-        else
-            echo "Navigation not found in: $file"
-        fi
+    # Extract navigation and create Svelte component
+    awk '/<nav[^>]*>/,/<\/nav>/' "$file" > "$COMPONENTS_DIR/Nav.svelte"
+    if [ $? -eq 0 ] && [ -s "$COMPONENTS_DIR/Nav.svelte" ]; then
+        echo "Navigation component created: $COMPONENTS_DIR/Nav.svelte"
     else
-        echo "Failed to extract navigation from: $file"
+        echo "Navigation not found in: $file"
     fi
 }
 
-export -f extract_components
+export -f extract_svelte_components
 
 # Find and process all .htm files
-find "$BASE_DIR" -type f -name "*.htm" -exec bash -c 'extract_components "$0"' {} \;
+find "$BASE_DIR" -type f -name "*.htm" -exec bash -c 'extract_svelte_components "$0"' {} \;
 
-echo "Extraction process completed."
+echo "Svelte component extraction process completed."
