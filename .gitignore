@@ -1,2 +1,6 @@
-pipeline-params.yml
-params.yml
+node_modules/
+.eslintcache
+.env
+.env.test
+.DS_Store
+tmp
