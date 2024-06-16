@@ -8,16 +8,19 @@ HEADER_DIR="$BASE_DIR/headers"
 FOOTER_DIR="$BASE_DIR/footers"
 NAV_DIR="$BASE_DIR/navigation"
 
-mkdir -p $HEADER_DIR
-mkdir -p $FOOTER_DIR
-mkdir -p $NAV_DIR
+# Create directories for storing components if they do not exist
+mkdir -p "$HEADER_DIR"
+mkdir -p "$FOOTER_DIR"
+mkdir -p "$NAV_DIR"
 
 # Function to extract components from HTML files
 extract_components() {
-    local file=$1
-    local relative_path=${file#$BASE_DIR/}
-    local filename=$(basename "$relative_path" .htm)
-    local dirname=$(dirname "$relative_path")
+    local file="$1"
+    local relative_path="${file#$BASE_DIR/}"
+    local filename
+    filename=$(basename "$relative_path" .htm)
+    local dirname
+    dirname=$(dirname "$relative_path")
 
     mkdir -p "$HEADER_DIR/$dirname"
     mkdir -p "$FOOTER_DIR/$dirname"
@@ -54,6 +57,6 @@ extract_components() {
 export -f extract_components
 
 # Find and process all .htm files
-find $BASE_DIR -type f -name "*.htm" -exec bash -c 'extract_components "$0"' {} \;
+find "$BASE_DIR" -type f -name "*.htm" -exec bash -c 'extract_components "$0"' {} \;
 
 echo "Extraction process completed."
