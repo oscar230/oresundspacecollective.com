@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base directory containing the HTML files
-BASE_DIR="./src"
+BASE_DIR="/mnt/data/src_extracted/src"
 
 # Directories to store extracted components
 HEADER_DIR="$BASE_DIR/headers"
@@ -23,17 +23,40 @@ extract_components() {
     mkdir -p "$FOOTER_DIR/$dirname"
     mkdir -p "$NAV_DIR/$dirname"
 
+    # Debugging information
+    echo "Processing file: $file"
+    echo "Relative path: $relative_path"
+    echo "Filename: $filename"
+    echo "Directory name: $dirname"
+
     # Extract header
     awk '/<header>/,/<\/header>/' "$file" > "$HEADER_DIR/$dirname/$filename-header.html"
+    if [ $? -eq 0 ]; then
+        echo "Header extracted to: $HEADER_DIR/$dirname/$filename-header.html"
+    else
+        echo "Failed to extract header from: $file"
+    fi
 
     # Extract footer
     awk '/<footer>/,/<\/footer>/' "$file" > "$FOOTER_DIR/$dirname/$filename-footer.html"
+    if [ $? -eq 0 ]; then
+        echo "Footer extracted to: $FOOTER_DIR/$dirname/$filename-footer.html"
+    else
+        echo "Failed to extract footer from: $file"
+    fi
 
     # Extract navigation
     awk '/<nav>/,/<\/nav>/' "$file" > "$NAV_DIR/$dirname/$filename-nav.html"
+    if [ $? -eq 0 ]; then
+        echo "Navigation extracted to: $NAV_DIR/$dirname/$filename-nav.html"
+    else
+        echo "Failed to extract navigation from: $file"
+    fi
 }
 
 export -f extract_components
 
 # Find and process all .htm files
 find $BASE_DIR -type f -name "*.htm" -exec bash -c 'extract_components "$0"' {} \;
+
+echo "Extraction process completed."
