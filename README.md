@@ -7,6 +7,8 @@ This is the website of [Øresund Space Collective](oresundspacecollective.com), 
 npx http-server src/
 ```
 ### New Jekyll site
+* https://jekyllrb.com/docs/
+* https://jekyllrb.com/docs/troubleshooting/#no-sudo
 ```bash
 cd osc
 bundle exec jekyll serve
