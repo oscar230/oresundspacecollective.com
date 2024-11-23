@@ -12,6 +12,27 @@ trigger:
     - test
 
 steps:
+
+  - name: verify
+    image: node:23-bookworm
+    commands:
+      - npm install -g markdownlint-cli
+      - ./verify.sh
+
+  # - name: compress-images
+  #   image: python:3-alpine
+  #   commands:
+  #     - pip3 install pillow optimize-images
+  #     - optimize-images ./ -jobs 16
+  #     - optimize-images ./public/lineup -jobs 16 -mw 500
+  #     - optimize-images ./public/workshops -jobs 16 -mw 500
+
+  # - name: remove-exif
+  #   image: alpine:3
+  #   commands:
+  #     - apk update && apk add exiftool
+  #     - exiftool -all:all= -r ./ -overwrite_original
+
   - name: build-and-push
     image: plugins/docker
     settings:
