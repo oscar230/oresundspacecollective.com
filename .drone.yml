@@ -18,9 +18,9 @@ steps:
     commands:
       - npm install -g markdownlint-cli
       - chmod +x ./verify-bash.sh
-      - chmod +x ./verify.sh
-      - ./verify-bash.sh ./verify.sh
-      - ./verify.sh
+      - chmod +x ./verify-site.sh
+      - ./verify-bash.sh ./verify-site.sh
+      - ./verify-site.sh
 
   # - name: compress-images
   #   image: python:3-alpine
