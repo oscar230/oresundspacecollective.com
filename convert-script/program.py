@@ -79,6 +79,6 @@ def html_to_markdown(input_folder, output_folder):
             print(f"Converted {filename} to {markdown_filename}")
 
 # Usage
-input_folder = "path/to/html/files"
-output_folder = "path/to/output/markdown/files"
+input_folder = "../osc/_posts"
+output_folder = "../osc/_posts"
 html_to_markdown(input_folder, output_folder)
