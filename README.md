@@ -2,13 +2,19 @@
 This is the website of [Øresund Space Collective](oresundspacecollective.com), based on a copy of `oresundspacecollective.com` from [archive.org](archive.org).
 
 ## Develop
-### Old static site
+### Prerequisites
+Install [Jekyll](https://jekyllrb.com/docs/installation).
+For Debian 12:
 ```bash
-npx http-server src/
+sudo apt install build-essential libffi-dev ruby-dev ruby gem
 ```
-### New Jekyll site
-* https://jekyllrb.com/docs/
-* https://jekyllrb.com/docs/troubleshooting/#no-sudo
+Add this to `~/.bashrc` to allow gem to run for a non-root user.
+```sh
+# Ruby exports
+export GEM_HOME=$HOME/gems
+export PATH=$HOME/gems/bin:$PATH
+```
+### Run
 ```bash
 cd osc
 bundle exec jekyll serve
