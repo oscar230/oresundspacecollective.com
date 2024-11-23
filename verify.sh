@@ -2,33 +2,37 @@
 
 BASE_DIR=./osc
 
+# Initialize an empty array to store error messages
+errors=()
+
 # Function to check if the file has the correct extension
 check_extension() {
-  for file in $(find $BASE_DIR -type f -name "*.markdown"); do
-    echo "Error: '$file' has the incorrect extension '.markdown'. It should be '.md'."
-    exit 1
+  for file in $(find $BASE_DIR/_posts -type f ! -name "*.md"); do
+    errors+=("File '$file' should have a .md extension.")
   done
 }
 
 # Function to check if markdown files in _posts have the required front matter
 check_front_matter() {
   for file in $(find $BASE_DIR/_posts -type f -name "*.md"); do
-    echo "Checking front matter for: $file"
+    # Check for layout: post
     if ! grep -q "^layout: post" "$file"; then
-      echo "Error: 'layout: post' is missing in the front matter of '$file'."
-      exit 1
+      errors+=("File '$file' is missing 'layout: post'.")
     fi
-    if ! grep -q "^date:" "$file"; then
-      echo "Error: 'date' is missing in the front matter of '$file'."
-      exit 1
+    
+    # Check for a date
+    if ! grep -q "^date: [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}" "$file"; then
+      errors+=("File '$file' is missing a valid date (YYYY-MM-DD).")
     fi
+
+    # Check for a title
     if ! grep -q "^title:" "$file"; then
-      echo "Error: 'title' is missing in the front matter of '$file'."
-      exit 1
+      errors+=("File '$file' is missing a 'title' field.")
     fi
+
+    # Check for a category
     if ! grep -q "^category:" "$file"; then
-      echo "Error: 'category' is missing in the front matter of '$file'."
-      exit 1
+      errors+=("File '$file' is missing a 'category' field.")
     fi
   done
 }
@@ -38,11 +42,11 @@ check_categories() {
   valid_categories=("news" "diary" "release")
   
   for file in $(find $BASE_DIR/_posts -type f -name "*.md"); do
-    category=$(grep "^category:" "$file" | sed 's/category: //')
-    
+    # Extract the category field and trim leading/trailing spaces
+    category=$(grep "^category:" "$file" | sed 's/category:[[:space:]]*//')
+    # Check category
     if [[ ! " ${valid_categories[@]} " =~ " ${category} " ]]; then
-      echo "Error: Invalid category '$category' in '$file'. Only 'news', 'diary', or 'release' are allowed."
-      exit 1
+      errors+=("File '$file' has an invalid category '$category'. Allowed categories: ${valid_categories[*]}")
     fi
   done
 }
@@ -51,10 +55,9 @@ check_categories() {
 check_formatting() {
   for file in $(find $BASE_DIR -type f -name "*.md"); do
     # Using markdownlint to check file formatting
-    markdownlint "$file"
+    lint_output=$(markdownlint "$file" 2>&1)
     if [ $? -ne 0 ]; then
-      echo "Error: Formatting issue detected in '$file'. Please fix the markdown issues."
-      exit 1
+      errors+=("File '$file' has markdownlint issues:\n$lint_output")
     fi
   done
 }
@@ -65,4 +68,13 @@ check_front_matter
 check_categories
 check_formatting
 
-echo "All checks passed successfully!"
+# If there are errors, print them and exit with a failure status
+if [ ${#errors[@]} -ne 0 ]; then
+  echo "The following errors were found:"
+  for error in "${errors[@]}"; do
+    echo "- $error"
+  done
+  exit 1
+else
+  echo "All checks passed successfully."
+fi
