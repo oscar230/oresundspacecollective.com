@@ -16,6 +16,7 @@ export PATH=$HOME/gems/bin:$PATH
 ```
 ### Run
 ```bash
-cd osc
-bundle exec jekyll serve
+$ cd osc
+$ bundle install
+$ bundle exec jekyll serve
 ```
