@@ -1,8 +1,10 @@
 #!/bin/bash
 
+BASE_DIR=./osc
+
 # Function to check if the file has the correct extension
 check_extension() {
-  for file in $(find . -type f -name "*.markdown"); do
+  for file in $(find $BASE_DIR -type f -name "*.markdown"); do
     echo "Error: '$file' has the incorrect extension '.markdown'. It should be '.md'."
     exit 1
   done
@@ -10,7 +12,7 @@ check_extension() {
 
 # Function to check if markdown files in _posts have the required front matter
 check_front_matter() {
-  for file in $(find ./_posts -type f -name "*.md"); do
+  for file in $(find $BASE_DIR/_posts -type f -name "*.md"); do
     echo "Checking front matter for: $file"
     if ! grep -q "^layout: post" "$file"; then
       echo "Error: 'layout: post' is missing in the front matter of '$file'."
@@ -35,7 +37,7 @@ check_front_matter() {
 check_categories() {
   valid_categories=("news" "diary" "release")
   
-  for file in $(find ./_posts -type f -name "*.md"); do
+  for file in $(find $BASE_DIR/_posts -type f -name "*.md"); do
     category=$(grep "^category:" "$file" | sed 's/category: //')
     
     if [[ ! " ${valid_categories[@]} " =~ " ${category} " ]]; then
@@ -47,7 +49,7 @@ check_categories() {
 
 # Function to check markdown formatting (using markdownlint or similar)
 check_formatting() {
-  for file in $(find . -type f -name "*.md"); do
+  for file in $(find $BASE_DIR -type f -name "*.md"); do
     # Using markdownlint to check file formatting
     markdownlint "$file"
     if [ $? -ne 0 ]; then
