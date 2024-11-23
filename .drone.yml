@@ -17,6 +17,7 @@ steps:
     image: node:23-bookworm
     commands:
       - npm install -g markdownlint-cli
+      - chmod +x ./verify.sh
       - ./verify.sh
 
   # - name: compress-images
