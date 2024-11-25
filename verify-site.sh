@@ -37,6 +37,11 @@ check_front_matter() {
     if ! grep -q "^category:" "$file"; then
       errors+=("File '$file' is missing a 'category' field.")
     fi
+
+    # Check for an author
+    if ! grep -q "^author:" "$file"; then
+      errors+=("File '$file' is missing a 'author' field.")
+    fi
   done
 }
 
