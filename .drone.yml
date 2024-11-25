@@ -16,7 +16,7 @@ steps:
   - name: verify
     image: node:23-bookworm
     commands:
-      - npm install -g markdownlint-cli
+      - npm install -g markdownlint-cli markdown-link-check
       - chmod +x ./verify-bash.sh
       - chmod +x ./verify-site.sh
       - ./verify-bash.sh ./verify-site.sh
