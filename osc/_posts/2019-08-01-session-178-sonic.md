@@ -3,7 +3,7 @@ layout: post
 title: "Session 178-Sonic Rock Solstice, UK June 23rd, 2019 – Øresund Space Collective"
 date: 2019-08-01 16:24:43 +0000
 author: "Dr Space"
-categories: sessions
+categories: session
 ---
 
 ### Session 178 - Sonic Rock Solstice, UK June 23rd, 2019

@@ -3,7 +3,7 @@ layout: post
 title: "Chatoyant Breath – Øresund Space Collective"
 date: 2018-07-09 07:50:49 +0000
 author: "Dr Space"
-categories: discography
+categories: release
 ---
 
 ### Chatoyant Breath

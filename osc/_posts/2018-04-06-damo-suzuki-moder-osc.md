@@ -3,7 +3,7 @@ layout: post
 title: "Damo Suzuki møder ØSC – Øresund Space Collective"
 date: 2018-04-06 18:44:10 +0000
 author: "Dr Space"
-categories: discography
+categories: release
 ---
 
 ### Damo Suzuki møder ØSC

@@ -42,7 +42,7 @@ check_front_matter() {
 
 # Function to check if the categories are valid
 check_categories() {
-  valid_categories=("news" "diary" "release")
+  valid_categories=("news" "diary" "release", "session")
   
   for file in $(find "$BASE_DIR/_posts" -type f -name "*.md"); do
     # Extract the category field and trim leading/trailing spaces
