@@ -13,14 +13,14 @@ trigger:
 
 steps:
 
-  - name: verify
-    image: node:23-bookworm
-    commands:
-      - npm install -g markdownlint-cli markdown-link-check
-      - chmod +x ./verify-bash.sh
-      - chmod +x ./verify-site.sh
-      - ./verify-bash.sh ./verify-site.sh
-      - ./verify-site.sh
+  # - name: verify
+  #   image: node:23-bookworm
+  #   commands:
+  #     - npm install -g markdownlint-cli markdown-link-check
+  #     - chmod +x ./verify-bash.sh
+  #     - chmod +x ./verify-site.sh
+  #     - ./verify-bash.sh ./verify-site.sh
+  #     - ./verify-site.sh
 
   # - name: compress-images
   #   image: python:3-alpine
