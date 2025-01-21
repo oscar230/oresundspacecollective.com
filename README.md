@@ -20,3 +20,7 @@ $ cd osc
 $ bundle install
 $ bundle exec jekyll serve
 ```
+### Old static site
+```bash
+npx http-server src/
+```
